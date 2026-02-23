@@ -5,7 +5,6 @@
     Compilação (sem raylib): g++ testes.cpp -o testes -std=c++17
     Execução:                ./testes
 
-
     Feito por Arthur
 */
 

@@ -1,5 +1,6 @@
 /*
-    Apenas o código base desenvolvido por francisco apenas para servir de guia para o andamento do projeto
+    Apenas o código base desenvolvido por Francisco apenas para servir de guia para o andamento do projeto
+    Essas ideias foram amadurecendo conforme os colaboradores foram implementando suas lógicas e suas próprias ideias.
 */
 
 // bibliotecas principais 

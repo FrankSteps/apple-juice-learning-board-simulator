@@ -1,5 +1,7 @@
 /*
-    Testes feitos por Renato antes do merge
+    Testes feitos por Renato antes do merge.
+    Neste arquivo, a interface gráfica com raylib não havia sido implementada ainda, mas o sistema
+    de visualização no próprio terminal já estava mais consolidada.
 */
 
 #include <iostream>

@@ -1,3 +1,13 @@
+/*
+    Aqui foram iniciadas os primeiros testes com o chip cd4026 antes de receber uma interface gráfica.
+    Aqui foi apenas um exercício de lógica com o paradigma orientado a objetos sendo melhor formalizado.
+    
+    Foi criado por Francisco e serviu como base de estudo, para a sua implementação e formalização no 
+    "projeto final".
+
+    O projeto foi testando anteriormente em um repositório separado: https://github.com/FrankSteps/cd4026_decade_counter_simulator
+*/
+
 #include <iostream>
 #include <stdlib.h>
 #include <string>

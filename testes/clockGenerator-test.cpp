@@ -1,3 +1,9 @@
+/*
+    Aqui é a formalizalção e aplicação um pouco mais robusta do POO no projeto teste-appleJuice.cpp
+    Este é o arquivo final que foi disponibilizado no repositório: https://github.com/FrankSteps/DigitalCounter555_Simulator
+*/
+
+
 #include <iostream>
 #include <string>
 #include <stdlib.h>

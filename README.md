@@ -23,7 +23,7 @@ A documentação completa escrita pelo professor passando as orientações está
 </p>
 
 <p align="center">
-    Clique para assistir ao vídeo no YouTube
+    Clique na imagem para assistir ao vídeo no YouTube
 </p>
 
 
@@ -53,6 +53,7 @@ Apple-juice-learning-board-simulator/
 ├── testes                          # Testes unitários e experimentais
 │   ├── 4026test.cpp                # teste de Francisco
 │   ├── clockGenerator-test.cpp     # teste de Francisco
+|   ├── teste_arthur                # teste de Arthur
 │   ├── teste-appleJuice.cpp        # teste de Francisco
 │   ├── teste.cpp                   # teste de Renato
 │   └── testes.cpp                  # teste de Arthur 
