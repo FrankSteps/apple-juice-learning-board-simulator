@@ -50,7 +50,7 @@ test: $(TESTES_BIN)
 
 # apagando binários
 clean:
-	rm -f $(TARGET) $(TESTES)
+	rm -f $(TARGET) $(TESTES_BIN)
 
 
 .PHONY: all run testes test clean
