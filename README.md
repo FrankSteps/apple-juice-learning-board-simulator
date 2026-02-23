@@ -17,7 +17,7 @@ A documentação completa escrita pelo professor passando as orientações está
 
 <p align="center">
   <a href="https://youtu.be/SVXHdgML4G8">
-    <img src="https://img.youtube.com/vi/SVXHdgML4G8/maxresdefault.jpg" 
+    <img src="images/apple-juice-simulator.png" 
          alt="Assista ao vídeo de apresentação do projeto">
   </a>
 </p>
