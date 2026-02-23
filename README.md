@@ -29,7 +29,7 @@ Interface gráfica utilizando raylib
 
 
 ## Apresentação do projeto
-[Assista ao vídeo (em breve)]()
+[Assista ao vídeo (em breve)](https://youtu.be/SVXHdgML4G8)
 
 
 ## Estrutura do projeto
