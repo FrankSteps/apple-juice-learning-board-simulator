@@ -14,7 +14,18 @@ A documentação completa escrita pelo professor passando as orientações está
 
 
 ## Interface gráfica do Apple Juice
-![Simulador do Apple Juice](images/apple-juice-simulator.png)
+
+<p align="center">
+  <a href="https://youtu.be/SVXHdgML4G8">
+    <img src="https://img.youtube.com/vi/SVXHdgML4G8/maxresdefault.jpg" 
+         width="600"
+         alt="Assista ao vídeo de apresentação do projeto">
+  </a>
+</p>
+
+<p align="center">
+    Clique para assistir ao vídeo no YouTube
+</p>
 
 
 ## Features 
@@ -26,14 +37,6 @@ Decodificação com CD4026
 <br>
 Interface gráfica utilizando raylib
 <br>
-
-
-## Apresentação do projeto
-<p align="center">
-  <a href="https://youtu.be/SVXHdgML4G8">
-    <img src="https://img.youtube.com/vi/SVXHdgML4G8/0.jpg" width="480" alt="Assista ao vídeo">
-  </a>
-</p>
 
 
 ## Estrutura do projeto
