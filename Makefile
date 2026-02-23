@@ -5,8 +5,8 @@ LDFLAGS  = -lpthread
 TARGET = apple-juice
 TESTES = testes
 
-TESTES_SRC = testes/teste.cpp
-TESTES_BIN = testes/teste
+TESTES_SRC = testes/testes.cpp
+TESTES_BIN = testes/testes
 
 # Detecta o sistema operacional
 UNAME := $(shell uname)

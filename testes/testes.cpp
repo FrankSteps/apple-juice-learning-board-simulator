@@ -5,17 +5,15 @@
     Compilação (sem raylib): g++ testes.cpp -o testes -std=c++17
     Execução:                ./testes
 
-    Feito por Arthur
+    Feito por arthur
 */
 
 #include <iostream>
 #include <stdexcept>
-#include <cassert>
 #include <string>
 #include <cmath>
 #include <cstdint>
 #include <atomic>
-#include <bitset>
 
 // ─── Infraestrutura de testes ────────────────────────────────────────────────
 
@@ -32,7 +30,6 @@ static void check(bool condicao, const std::string& descricao) {
     }
 }
 
-// Verifica se o bloco lança a exceção esperada
 template<typename ExcecaoEsperada, typename Bloco>
 static void checkThrows(Bloco bloco, const std::string& descricao) {
     totalTestes++;
@@ -49,13 +46,7 @@ static void checkThrows(Bloco bloco, const std::string& descricao) {
 
 // ─── Cópias das classes (sem dependência de raylib) ──────────────────────────
 
-class Chip {
-public:
-    virtual ~Chip() = default;
-    virtual void visualize() const = 0;
-};
-
-class Chip4026 : public Chip {
+class Chip4026 {
 protected:
     bool carryOut = false;
     unsigned int Out = 0;
@@ -69,24 +60,25 @@ public:
 
     virtual void reset() { Out = 0; carryOut = false; }
 
-    unsigned int getOut()    const { return Out; }
+    unsigned int getOut()      const { return Out; }
     bool         getCarryOut() const { return carryOut; }
+};
 
-    void visualize() const override {
-        std::cout << "[CD4026] Out=" << Out << " | CarryOut=" << (carryOut ? "true" : "false") << "\n";
+class Unidade : public Chip4026 {
+public:
+    void add() override {
+        Chip4026::add();
     }
 };
 
-class Unidade : public Chip4026 {};
-
 class Dezena : public Chip4026 {
-private:
-    using Chip4026::add;
 public:
-    void addOnCarry(bool carryIn) { if (carryIn) add(); }
+    void addOnCarry(bool carryIn) {
+        if (carryIn) add();
+    }
 };
 
-class Chip555 : public Chip {
+class Chip555 {
 private:
     double R1, R2, C;
     double tHigh = 0.0, tLow = 0.0, period = 0.0, freq = 0.0;
@@ -106,18 +98,12 @@ public:
         calcTimings();
     }
 
-    void reset()             { stateHigh = false; }
-    bool   isHigh()    const { return stateHigh; }
+    bool   isHigh()       const { return stateHigh; }
     double getFrequency() const { return freq; }
     double getPeriod()    const { return period; }
-
-    void visualize() const override {
-        std::cout << "[NE555] f=" << freq << " Hz | T=" << period
-                  << " s | State=" << (stateHigh ? "HIGH" : "LOW") << "\n";
-    }
 };
 
-class Chip4017 : public Chip {
+class Chip4017 {
 private:
     unsigned LimitReset;
     uint32_t Out{0};
@@ -136,11 +122,6 @@ public:
     void reset()               { Out = 1u << (LimitReset - 1); }
     uint32_t getOut()    const { return Out; }
     unsigned getLimitReset() const { return LimitReset; }
-
-    void visualize() const override {
-        std::cout << "[CD4017] Out=0b" << std::bitset<10>(Out)
-                  << " | LimitReset=" << LimitReset << "\n";
-    }
 };
 
 // ─── Testes ──────────────────────────────────────────────────────────────────
@@ -149,25 +130,24 @@ void testarChip4026() {
     std::cout << "\n[Chip4026 / Unidade / Dezena]\n";
 
     Unidade u;
-    check(u.getOut() == 0,        "estado inicial é 0");
+    check(u.getOut() == 0,          "estado inicial é 0");
     check(u.getCarryOut() == false, "carry inicial é false");
 
     for (int i = 0; i < 9; i++) u.add();
-    check(u.getOut() == 9,         "após 9 incrementos Out == 9");
+    check(u.getOut() == 9,          "após 9 incrementos Out == 9");
     check(u.getCarryOut() == false, "carry ainda false antes do estouro");
 
     u.add(); // estouro
-    check(u.getOut() == 0,        "após estouro Out volta a 0");
+    check(u.getOut() == 0,         "após estouro Out volta a 0");
     check(u.getCarryOut() == true, "carry ativado no estouro");
 
     u.add();
-    check(u.getCarryOut() == false, "carry desativado após primeiro incremento pós-estouro");
+    check(u.getCarryOut() == false, "carry desativado após incremento pós-estouro");
 
     u.reset();
-    check(u.getOut() == 0,         "reset zera Out");
+    check(u.getOut() == 0,          "reset zera Out");
     check(u.getCarryOut() == false, "reset zera carryOut");
 
-    // Dezena: só avança com carry = true
     Dezena d;
     d.addOnCarry(false);
     check(d.getOut() == 0, "addOnCarry(false) não incrementa");
@@ -179,69 +159,64 @@ void testarChip4026() {
 void testarChip555() {
     std::cout << "\n[Chip555]\n";
 
-    // Construção válida
     Chip555 c(10000.0, 10000.0, 11e-6);
     check(c.getFrequency() > 0,  "frequência positiva após construção");
     check(c.getPeriod() > 0,     "período positivo após construção");
     check(c.isHigh() == false,   "estado inicial LOW");
 
-    // Verificação aproximada da fórmula: f = 1 / (0.693 * (R1 + 2*R2) * C)
     double fEsperada = 1.0 / (0.693 * (10000.0 + 2.0 * 10000.0) * 11e-6);
     check(std::fabs(c.getFrequency() - fEsperada) < 0.01, "frequência calculada corretamente");
 
-    c.reset();
-    check(c.isHigh() == false, "reset mantém estado LOW");
-
-    // Construção inválida
-    checkThrows<std::invalid_argument>([]{ Chip555(0, 10000, 11e-6); },  "R1 = 0 lança invalid_argument");
-    checkThrows<std::invalid_argument>([]{ Chip555(10000, -1, 11e-6); }, "R2 negativo lança invalid_argument");
-    checkThrows<std::invalid_argument>([]{ Chip555(10000, 10000, 0); },  "C = 0 lança invalid_argument");
+    checkThrows<std::invalid_argument>([]{ Chip555(0,     10000, 11e-6); }, "R1 = 0 lança invalid_argument");
+    checkThrows<std::invalid_argument>([]{ Chip555(10000, -1,    11e-6); }, "R2 negativo lança invalid_argument");
+    checkThrows<std::invalid_argument>([]{ Chip555(10000, 10000, 0);    }, "C = 0 lança invalid_argument");
 }
 
 void testarChip4017() {
     std::cout << "\n[Chip4017]\n";
 
     Chip4017 c(4);
-    // Com LimitReset=4, estado inicial: 0b1000 = 8
     check(c.getOut() == 0b1000, "estado inicial correto para LimitReset=4");
 
     c.shift();
     check(c.getOut() == 0b0100, "shift desloca bit para direita");
 
-    c.shift();
-    c.shift();
-    c.shift(); // volta ao início após 4 shifts
+    c.shift(); c.shift(); c.shift();
     check(c.getOut() == 0b1000, "após LimitReset shifts, retorna ao estado inicial");
 
     c.shift();
     c.reset();
     check(c.getOut() == 0b1000, "reset restaura estado inicial");
 
-    // Limites do construtor
     checkThrows<std::invalid_argument>([]{ Chip4017(0);  }, "LimitReset=0 lança invalid_argument");
     checkThrows<std::invalid_argument>([]{ Chip4017(11); }, "LimitReset=11 lança invalid_argument");
 
-    // Limites válidos
     Chip4017 min(1);
-    check(min.getOut() == 1, "LimitReset=1 inicializa com Out=1");
+    check(min.getOut() == 1,         "LimitReset=1 inicializa com Out=1");
 
     Chip4017 max(10);
     check(max.getOut() == (1u << 9), "LimitReset=10 inicializa com bit na posição 9");
 }
 
 void testarPolimorfismo() {
-    std::cout << "\n[Polimorfismo via Chip*]\n";
+    std::cout << "\n[Polimorfismo via Chip4026*]\n";
 
-    // Verifica que os três chips funcionam através de ponteiro para a base abstrata
-    Chip* chips[] = { new Unidade(), new Chip555(10000, 10000, 11e-6), new Chip4017(4) };
+    // Unidade e Dezena são subclasses de Chip4026
+    // o despacho dinâmico ocorre quando add() e reset() são chamados via ponteiro da base
+    Chip4026* displays[] = { new Unidade(), new Dezena() };
 
-    bool todosVisualizaram = true;
-    for (Chip* c : chips) {
-        try { c->visualize(); }
-        catch (...) { todosVisualizaram = false; }
-        delete c;
-    }
-    check(todosVisualizaram, "visualize() chamado polimorficamente sem erros");
+    displays[0]->add();
+    static_cast<Dezena*>(displays[1])->addOnCarry(true);
+
+    check(displays[0]->getOut() == 1, "Unidade avança via ponteiro Chip4026*");
+    check(displays[1]->getOut() == 1, "Dezena avança via addOnCarry");
+
+    displays[0]->reset();
+    displays[1]->reset();
+    check(displays[0]->getOut() == 0, "reset via Chip4026* funciona em Unidade");
+    check(displays[1]->getOut() == 0, "reset via Chip4026* funciona em Dezena");
+
+    for (Chip4026* c : displays) delete c;
 }
 
 // ─── Main ────────────────────────────────────────────────────────────────────
