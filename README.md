@@ -1,23 +1,21 @@
 # Apple Juice learning board simulator
 
-![Placa Apple Juice](images/apple-juice.png)
+![Placa Apple Juice](assets/apple-juice.png)
 
 O simulador com interface gráfica da placa de aprendizagem Apple Juice foi desenvolvido para o laboratório da FnEsc, no Departamento de Física da UFS. O sistema foi implementado, principalmente, utilizando o paradigma de programação orientada a objetos, com algumas funcionalidades de caráter procedural.
 
 A Apple Juice é uma placa de aprendizagem voltada ao estudo de circuitos digitais construídos com circuitos integrados discretos, como o CD4017, NE555 e CD4026. O sistema oferece suporte à entrada de clock externo, permitindo incrementar a contagem na parte do circuito responsável pela decodificação binária para decimal (a seção que utiliza o CD4026). Além disso, possui um botão de reset para os circuitos CD4017 e um switch para alternar entre o clock externo e o clock interno gerado pelo 555 configurado em modo astável. 
 
-Leia sobre os componentes que estão presentes no projeto clicando [aqui](./documentacao/appleJuice.pdf).
+Leia sobre os componentes que estão presentes no projeto clicando [aqui](./docs/appleJuice.pdf).
 
 O objetivo deste projeto foi aplicar os conceitos de programação orientada a objetos apresentados em sala de aula na disciplina de POO, sob orientação do professor Carlos Estombelo. Conceitos como tratamento de exceções com try e catch, encapsulamento, herança e polimorfismo foram utilizados ao longo do desenvolvimento do sistema. 
-
-A documentação completa escrita pelo professor passando as orientações está disponível [aqui](./paraDisciplina/orientacao.pdf).
 
 
 ## Interface gráfica do Apple Juice
 
 <p align="center">
   <a href="https://youtu.be/SVXHdgML4G8">
-    <img src="images/apple-juice-simulator.png" 
+    <img src="assets/apple-juice-simulator.png" 
          alt="Assista ao vídeo de apresentação do projeto">
   </a>
 </p>
@@ -41,29 +39,29 @@ Interface gráfica utilizando raylib
 ## Estrutura do projeto
 ```
 Apple-juice-learning-board-simulator/
-├── documentacao                    # Documentação escrita por Francisco do projeto
-│   ├── appleJuice.pdf                
+├── docs/                           # Documentação escrita
+│   ├── appleJuice.pdf
 │   └── appleJuice.tex
-├── images                          # Imagens utilizadas no README
-│   ├── apple-juice-simulator.png 
-│   └── apple-juice.png 
-├── paraDisciplina                  # Materiais complementares da disciplina
+├── images/                         # Imagens do README e do projeto
+│   ├── apple-juice-simulator.png
+│   └── apple-juice.png
+├── materials/                      # Materiais complementares (antes "paraDisciplina")
 │   ├── orientacao.pdf
 │   └── roteiro.pdf
-├── testes                          # Testes unitários e experimentais
-│   ├── 4026test.cpp                # teste de Francisco
-│   ├── clockGenerator-test.cpp     # teste de Francisco
-|   ├── teste_arthur                # teste de Arthur
-│   ├── teste-appleJuice.cpp        # teste de Francisco
-│   ├── teste.cpp                   # teste de Renato
-│   └── testes.cpp                  # teste de Arthur 
-│
-├── apple-juice.cpp                 # Arquivo principal do simulador
-├── CONTRIBUTING.md                 # Diretrizes para contribuição no projeto
-├── LICENSE                         # Licença do projeto (GNU GPLv3)
-├── Makefile                        # Script de compilação e execução
-├── README.md                       # Documentação principal do repositório
-└── shell.nix                       # Arquivo de configuração para compilar em distros nixOS
+├── tests/                          # Testes unitários e experimentais
+│   ├── test_4026.cpp
+│   ├── test_clockGenerator.cpp
+│   ├── test_arthur.cpp
+│   ├── test_appleJuice.cpp
+│   ├── test_renato.cpp
+│   └── test_misc.cpp
+├── src/                            # Código-fonte
+│   └── apple-juice.cpp
+├── CONTRIBUTING.md
+├── LICENSE
+├── Makefile
+├── README.md
+└── shell.nix
 ```
 
 ## Pré-requisitos
