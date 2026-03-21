@@ -1,0 +1,16 @@
+builds/
+*.o
+*.out
+*.exe
+*.app
+*.dSYM/
+.vscode/
+*.aux
+*.log
+*.toc
+*.out
+*.fls
+*.fdb_latexmk
+*.synctex.gz
+.DS_Store
+Thumbs.db

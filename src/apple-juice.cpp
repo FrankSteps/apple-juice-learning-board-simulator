@@ -49,7 +49,6 @@ namespace ray{
 }
 
 
-
 /*
     Classe base que simula o funcionamento de um display decodificador CD4026, responsável por incrementar a contagem 
     de 0 a 9 e gerar um sinal de carry quando a contagem reinicia (Out volta a 0). 
@@ -611,7 +610,6 @@ public:
 
                 // Mensagem de apoio
                 ray::DrawText("Dica: aumente C (ex.: 47uF) para ficar mais lento; diminua C (ex.: 10uF) para acelerar.", 60, 360, 16, ray::Fade(ray::RAYWHITE, 0.45f));
-            
             ray::EndDrawing();
         }
 

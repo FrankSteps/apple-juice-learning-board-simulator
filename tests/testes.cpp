@@ -65,7 +65,7 @@ public:
 };
 
 class Unidade : public Chip4026 {
-public:
+public: 
     void add() override {
         Chip4026::add();
     }
