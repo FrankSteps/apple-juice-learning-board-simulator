@@ -23,18 +23,16 @@ O objetivo deste projeto foi aplicar os conceitos de programação orientada a o
     Clique na imagem para assistir ao vídeo no YouTube
 </p>
 
-
-## Funcionalidades 
+## Funcionalidades
 
 - Simulação do CI NE555 em modo astável
 - Simulação do CD4017 (contador Johnson)
 - Decodificação com CD4026
 - Interface gráfica utilizando raylib
 
-
 ## Estrutura do projeto
 
-```
+```text
 Apple-juice-learning-board-simulator/
 ├── docs/                           # Documentação escrita em LaTeX
 │   ├── appleJuice.pdf
@@ -64,7 +62,7 @@ Apple-juice-learning-board-simulator/
 ## Pré-requisitos
 
 - g++ (com suporte a C++17)
-- cmake 
+- cmake
 - raylib
 - pkg-config
 
